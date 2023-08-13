@@ -1,9 +1,20 @@
 const express = require('express')
+const morgan = require('morgan')
+const cors = require('cors')
 const app = express()
 
 // Tell the app to use the .json parser
 app.use(express.json())
 
+// Tell the app to use cors so you can make the front end have the same origin
+app.use(cors()) 
+
+// Make the token for Morgan and a string to send to it
+morgan.token('info', (req,res) => {
+  return JSON.stringify(req.body)
+})
+
+const stringMorgan = ':method :url :status :res[content-length] - :response-time ms'
 
 //Pathway & URL for web-app
   // Pathway
@@ -42,7 +53,7 @@ app.get('/api/persons',(req,res) => {
     res.json(persons)
 })
 
-// Info Page
+// Info Page 
 
 app.get('/info', (req,res) => {
   const date = Date()
@@ -98,7 +109,7 @@ app.delete('/api/persons/:id',(req,res) => {
 
 // Functionality for adding a name
 
-app.post('/api/persons', (req,res) => {
+app.post(('/api/persons'), morgan(stringMorgan + ' :info'), (req,res) => {
   // Tell express what to take the text
   // from the body of the request
 
@@ -145,17 +156,18 @@ app.post('/api/persons', (req,res) => {
       persons = persons.concat(person)
       res.json(person).end
     }
-    
+
   }else {
   res.status(404).send( {error: 'You must have both a name & number' }).end
   }
   })
 
+  // Now make the logger for the app with Morgan
   
 
 //  Test random number generator
 //  console.log(`this is a random number`, Math.floor(Math.random()*1E4))
-const PORT = 3001
+const PORT = process.env.PORT || 3001
 app.listen(PORT, () => { 
     console.log(`Server running on Port ${PORT}`)
 })

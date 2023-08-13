@@ -1,7 +1,7 @@
 import  axios  from 'axios'
 // This is the axios code service, named 'names'
 // we also need to import the newName and other variables to this service
-const url = 'http://localhost:3001/persons'
+const url = 'http://localhost:3001/api/persons'
 
 // Retrieves data from the server, all the raw data
 const getData = () => {
