@@ -104,38 +104,54 @@ app.post('/api/persons', (req,res) => {
 
   const body = req.body
   
+  // Make some variables to check for the existence of name & num
   const enteredName = body.name
-  const enteredNum = body.num
+  // Log the name
+  // console.log (`"index.js" this is the name that is to be appended ${enteredName}`)
+  const enteredNum = body.number
 
-  // log the body constant
-  // console.log (`this is body ${body}`)
+  // Make some variables to check for repeats
+  // this should traverse the persons array and find what equals name,
+  // then make another one that does the same but looks for the number
+
+  const nameMatch = persons
+    .find(nameMatch => 
+          nameMatch.name === enteredName)
+
+  const numMatch = persons
+    .find(numMatch => 
+      numMatch.number === enteredNum)
+
+    // log the nameMatch variable
+    // console.log(`this is nameMatch ${nameMatch}`)
   
-  // Now an if statment so that IF the name or number are empty 
-    // we have to an error statment is sent to the user
-
-  // ? how do I send the error, 
-  // rem to include a return to exit if statement
-  
-  // Make an array of the name and num for if statment
-  const array = enteredName.concat(enteredNum)
-
-
-  if(enteredName || enteredNum){   
+  // If statement to test if the name exists
+  if (enteredName && enteredNum){   
     
-    const person =  
-        {
-          id: Math.floor(Math.random()*1E4),
-          name: body.name,     
-          number: body.number  
-        }
+    // if statement to test if there are matching names or numbers
+    if(nameMatch){
+      // The name matches soo..
+      res.status(404).send( {error: 'you have a repeated name' }).end
+    }else if (numMatch){
+      // The number matches soo..
+      res.status(404).send( {error: 'you have a repeated phonenumber' }).end
+    }else{
+      // the name does not match sooo... 
+      const person =  {
+        id: Math.floor(Math.random()*1E4),
+        name: enteredName,     
+        number: enteredNum  
+      }
+      persons = persons.concat(person)
+      res.json(person).end
+    }
+    
+  }else {
+  res.status(404).send( {error: 'You must have both a name & number' }).end
+  }
+  })
 
-  persons = persons.concat(person)
-
-  res.json(person)}
-
-  else {res.status(404).send({ error: 'ADD A NAME' }).end}
-
-      })
+  
 
 //  Test random number generator
 //  console.log(`this is a random number`, Math.floor(Math.random()*1E4))
