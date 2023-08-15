@@ -280,7 +280,7 @@ function findKey(obj, key) {
 const _global = (() => {
   /*eslint no-undef:0*/
   if (typeof globalThis !== "undefined") return globalThis;
-  return typeof self !== "undefined" ? self : (typeof window !== 'undefined' ? window : global)
+  return typeof window !== "undefined" ? window : (typeof window !== 'undefined' ? window : global)
 })();
 
 const isContextDefined = (context) => !isUndefined(context) && context !== _global;

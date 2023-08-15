@@ -9,6 +9,9 @@ app.use(express.json())
 // Tell the app to use cors so you can make the front end have the same origin
 app.use(cors()) 
 
+// Tell the app that it should use the middleware static so we can see static content
+app.use(express.static('build'))
+
 // Make the token for Morgan and a string to send to it
 morgan.token('info', (req,res) => {
   return JSON.stringify(req.body)

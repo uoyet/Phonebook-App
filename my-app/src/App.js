@@ -4,7 +4,7 @@ import Names from './components/Names'
 import Message from './components/Message'
 import names from './services/names' 
 
-//~/Users/ubelejit/Documents/React-Apps/Phonebook-app/my-app
+// /Users/ubelejit/Documents/React-Apps/Phonebook-app/my-app
 
 const App = () => {
   //right now persons is gonna be changing continually

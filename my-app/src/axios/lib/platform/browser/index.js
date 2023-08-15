@@ -45,8 +45,8 @@ const isStandardBrowserEnv = (() => {
   return (
     typeof WorkerGlobalScope !== 'undefined' &&
     // eslint-disable-next-line no-undef
-    self instanceof WorkerGlobalScope &&
-    typeof self.importScripts === 'function'
+    window instanceof WorkerGlobalScope &&
+    typeof window.importScripts === 'function'
   );
 })();
 
