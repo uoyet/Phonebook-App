@@ -83,7 +83,7 @@ const App = () => {
     // it is on */}
     // logs if deleteRequest Button is pressed
     // console.log(`deleteRequest was called at ${id}`)
-    const delUrl = `http://localhost:3001/persons/${id}`
+    const delUrl = `/api/persons/${id}`
       const deletedInfo = persons.find(info2Delete => 
         info2Delete.id === id)
 
