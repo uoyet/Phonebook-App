@@ -3,6 +3,9 @@ import  axios  from 'axios'
 // we also need to import the newName and other variables to this service
 const url = '/api/persons'
 
+/** Be sure to change the url back to the relative URL */
+// /api/persons
+
 // Retrieves data from the server, all the raw data
 const getData = () => {
 	const request = axios.get(url)
